@@ -30,7 +30,7 @@ def main(feed_url, output_dir, start_page, wait_time):
         for entry in entries_page:
             print(f"Generating PDF for: {entry['title']}")
             entry_date_string = time.strftime("%Y-%m-%d", entry["published_parsed"])
-            entry_title = TITLE_REGEX.sub("_", entry["title"])
+            entry_title = TITLE_REGEX.sub("_", entry["title"])[:50]
             HTML(entry["link"]).write_pdf(
                 os.path.join(output_dir, f"{entry_date_string}-{entry_title}.pdf"),
                 stylesheets=[
