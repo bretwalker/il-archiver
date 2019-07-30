@@ -13,21 +13,20 @@ TITLE_REGEX = re.compile(r"[^0-9a-zA-Z]+")
 
 def get_entries_page(feed_url, start_page):
     page = start_page
-    f = {}
-    while not f.get("bozo_exception"):
+    while True:
         print(f"Fetching page {page}")
         f = feedparser.parse(f"{feed_url}?paged={page}")
         if f.get("bozo_exception"):
             raise Exception(f.get("bozo_exception"))
-        if f.get("status") == "404":
-            print("No more pages")
-            break
         page += 1
         yield f["entries"]
 
 
 def main(feed_url, output_dir, start_page, wait_time):
     for entries_page in get_entries_page(feed_url, start_page):
+        if not entries_page:
+            print("No more entries")
+            return
         for entry in entries_page:
             print(f"Generating PDF for: {entry['title']}")
             entry_date_string = time.strftime("%Y-%m-%d", entry["published_parsed"])
