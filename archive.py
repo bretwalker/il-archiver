@@ -54,9 +54,7 @@ def main(feed_url, output_dir, start_page, wait_time):
                     )
                 ],
             )
-            import sys
 
-            sys.exit(0)
             time.sleep(wait_time)
 
 
