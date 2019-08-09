@@ -49,6 +49,9 @@ def main(feed_url, output_dir, start_page, wait_time):
                     .alignright, .alignleft, * {
                         float: none !important;
                     }
+                    .wpls-logo-showcase-slider-wrp {
+                        display: none;
+                    }
                     """
                     )
                 ],
